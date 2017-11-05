@@ -74,8 +74,6 @@ int main()
 	int i = 0;
 	cin >> i;
 
-	main();
-
     return 0;
 }
 
