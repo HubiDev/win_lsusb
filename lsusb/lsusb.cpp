@@ -128,7 +128,7 @@ void ScanHubForConnectedDevices(const HANDLE& hubHandle)
 			auto device = GetStringDescriptor(hubHandle, static_cast<ULONG>(i), nodeInfoEx.DeviceDescriptor.iProduct);
 			auto serialNumber = GetStringDescriptor(hubHandle, static_cast<ULONG>(i), nodeInfoEx.DeviceDescriptor.iSerialNumber);
 
-			wcout << manufacturer + L"\t" + device + L"\t" + serialNumber + L"\n";
+			wcout << manufacturer + L" " + device + L" (" + serialNumber + L") \n";
 		}
 	}
 }
