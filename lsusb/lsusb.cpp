@@ -23,7 +23,7 @@ int main()
 	//Get handle of current process
 	HWND currentHWND = GetConsoleWindow();
 
-	//Create GUID from string TODO: move to utils
+	//Create GUID from string
 	GUID usbHubGuid;
 	LPCOLESTR guidStr = L"{f18a0e88-c30c-11d0-8815-00a0c906bed8}";
 	HRESULT result = CLSIDFromString(guidStr, (LPCLSID)&usbHubGuid);
@@ -71,8 +71,11 @@ int main()
 		index++;
 	}
 
-	int i = 0;
-	cin >> i;
+	//Clean up
+	SetupDiDestroyDeviceInfoList(deviceInfo);
+
+	wprintf(L"\nPress any key to continue...");
+	cin.ignore();
 
     return 0;
 }
@@ -126,7 +129,8 @@ void ScanHubForConnectedDevices(const HANDLE& hubHandle)
 			auto device = GetStringDescriptor(hubHandle, static_cast<ULONG>(i), nodeInfoEx.DeviceDescriptor.iProduct);
 			auto serialNumber = GetStringDescriptor(hubHandle, static_cast<ULONG>(i), nodeInfoEx.DeviceDescriptor.iSerialNumber);
 
-			wcout << manufacturer + L" " + device + L" (" + serialNumber + L") \n";
+			wstring output = manufacturer + L" " + device + L" (" + serialNumber + L") \n";
+			wprintf(output.c_str());
 		}
 	}
 }
@@ -166,7 +170,7 @@ wstring GetStringDescriptor(const HANDLE& hubHandle, ULONG portIndex, UCHAR desc
 		descriptorRequest,
 		bufferSize, 
 		&bytesReturned,
-		NULL);
+		nullptr);
 	
 	if (res)
 	{
