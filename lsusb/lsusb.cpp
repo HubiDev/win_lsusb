@@ -1,7 +1,6 @@
 // "lsusb.cpp": Definiert den Einstiegspunkt für die Konsolenanwendung.
 //
 
-#include "stdafx.h"
 #include <iostream>
 #include <Windows.h>
 #include <SetupAPI.h>
@@ -107,7 +106,7 @@ void ScanHubForConnectedDevices(const HANDLE& hubHandle)
 
 
 	//Iterate over all ports an detect connected device
-	for (int i = 1; i < portCount; ++i)
+	for (int i = 1; i <= portCount; ++i)
 	{
 		nodeInfoEx.ConnectionIndex = static_cast<ULONG>(i);
 
